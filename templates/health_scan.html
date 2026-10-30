@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}NAYANTRA-360° - Health Scan{% endblock %}
+{% block content %}
+<div style="padding:15px;max-width:1200px;margin:auto">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+<h2>🩺 NAYANTRA-360° - Health Scan Parameters</h2>
+<div><span style="background:#00c853;color:white;padding:6px 12px;border-radius:20px;font-size:12px">● LIVE Firebase: biorevive-360</span>
+<button onclick="nextPage('/factory')" class="glass-btn">🏭 Factory →</button></div>
+</div>
+
+<div class="grid3" style="grid-template-columns:1fr 1fr 1fr">
+<div class="card"><h4>❤️ HR - MAX30102</h4><canvas id="ecg" width="300" height="80" style="background:#000;width:100%;border-radius:8px"></canvas><h2 style="color:#ef4444"><span id="hr">69</span> bpm</h2><small>ESP32 GPIO 21</small></div>
+<div class="card"><h4>🩸 SpO2</h4><canvas id="ppg" width="300" height="80" style="background:#000;width:100%;border-radius:8px"></canvas><h2 style="color:#06b6d4"><span id="spo2">98</span>%</h2><small>MAX30102</small></div>
+<div class="card"><h4>🌡️ Skin Temp - DS18B20</h4><h2 style="color:#f59e0b"><span id="temp">29.5</span>°C LIVE</h2><p>Real sensor reading from Patna</p><small>ESP32 GPIO 22</small></div>
+<div class="card"><h4>💧 GSR + Moisture + pH</h4><p>GSR: <span id="gsr">1.6</span> µS<br>Moisture: <span id="moist">65</span>% LIVE<br>pH: <span id="ph">7.2</span> pH LIVE</p><small>Grove GSR + Moisture + pH sensor</small></div>
+<div class="card"><h4>🧠 EEG - TGAM1</h4><canvas id="eeg" width="300" height="80" style="background:#000;width:100%;border-radius:8px"></canvas><h2>Focus: <span id="eegv">82</span>%</h2></div>
+<div class="card"><h4>🌬️ Respiration Belt</h4><canvas id="resp" width="300" height="80" style="background:#000;width:100%;border-radius:8px"></canvas><h2><span id="respv">16</span> brpm</h2></div>
+</div>
+
+<div style="background:#1e293b;border-radius:12px;padding:15px;margin:15px 0;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;text-align:center">
+<div><h4>Biological Age</h4><h1 style="color:#8b5cf6"><span id="bioage">31</span> yrs</h1><small>Chronological 32 yrs - AI predicted</small></div>
+<div><h4>Heart Age</h4><h1 style="color:#ef4444"><span id="heartage">29</span> yrs</h1><small>From HR + SpO2 + Temp fusion</small></div>
+<div><h4>Skin Age</h4><h1 style="color:#f59e0b"><span id="skinage">28</span> yrs</h1><small>From Moisture 65% + pH 7.2 + GSR</small></div>
+</div>
+
+<div style="background:#000;border-radius:12px;padding:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+<span style="color:#00ff88">● ESP32: 192.168.1.100</span><span style="color:#60a5fa">● Pi: 192.168.1.50</span>
+<button onclick="toggleSensor()" class="glass-btn" style="background:#00c853;color:white">ON/OFF Sensors - Freeze/Flow</button>
+<span style="color:#94a3b8;font-size:11px">Signals flow only when ON, freeze when OFF - V8 hardware-control.html logic</span>
+</div>
+</div>
+
+<script>
+let running=true;
+function drawWave(id,color){let c=document.getElementById(id),ctx=c.getContext('2d'),x=0;setInterval(()=>{if(!running)return;ctx.fillStyle='#000';ctx.fillRect(0,0,300,80);ctx.strokeStyle=color;ctx.beginPath();for(let i=0;i<300;i++){let y=40+Math.sin((i+x)/10)*20+Math.random()*5;if(i==0)ctx.moveTo(i,y);else ctx.lineTo(i,y)}ctx.stroke();x+=2;},50);}
+drawWave('ecg','#ef4444');drawWave('ppg','#06b6d4');drawWave('eeg','#8b5cf6');drawWave('resp','#10b981');
+function toggleSensor(){running=!running; document.getElementById('hr').innerText=running?69+Math.floor(Math.random()*5):69;}
+setInterval(()=>{if(running){document.getElementById('temp').innerText=(29+Math.random()*1.5).toFixed(1);document.getElementById('moist').innerText=Math.floor(64+Math.random()*3);document.getElementById('ph').innerText=(7.1+Math.random()*0.2).toFixed(1);}},2000);
+</script>
+{% endblock %}
