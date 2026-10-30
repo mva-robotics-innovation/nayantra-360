@@ -3,7 +3,6 @@ import os
 
 app = Flask(__name__)
 
-# Don't crash on Vercel - CV runs in browser JS
 try:
     import cv2
     import mediapipe as mp
@@ -52,10 +51,9 @@ def tech():
 @app.route('/investment')
 def investment():
     return render_template('investment.html')
-
 @app.route('/api/status')
 def api_status():
-    return {"project":"NAYANTRA-360°","status":"LIVE","platform":"Vercel","db":"Firebase"}
+    return {"project":"NAYANTRA-360°","status":"LIVE","platform":"Vercel"}
 
 def gen_video():
     if not HAS_CV:
@@ -77,7 +75,7 @@ def gen_video():
 @app.route('/video_feed')
 def video_feed():
     if not HAS_CV:
-        return Response("Client-side webcam via JS on Vercel", status=200, mimetype='text/plain')
+        return Response("Client-side webcam via JS", status=200, mimetype='text/plain')
     return Response(gen_video(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 if __name__ == '__main__':
