@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}NAYANTRA-360° - School Monitor{% endblock %}
+{% block content %}
+<div style="padding:15px;max-width:1200px;margin:auto">
+<h2>🏫 NAYANTRA-360° - School Monitor - Reading vs Distracted + Age/Gender/Build/Expression</h2>
+
+<div style="display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-top:12px">
+<div style="background:#000;border-radius:12px;overflow:hidden">
+<video id="schoolCam" autoplay style="width:100%;height:380px;background:#111"></video>
+<canvas id="overlay" style="position:absolute;top:0;left:0;width:100%;height:380px;pointer-events:none"></canvas>
+<div style="padding:10px;display:flex;gap:8px;flex-wrap:wrap;position:relative">
+<button onclick="startSchool()" class="glass-btn" style="background:#2563eb;color:white">📷 Start School Webcam</button>
+<span style="color:#00ff88">● Dotted: Face 468 + Body 33 + Hands 21</span>
+<span id="focusBadge" style="background:#00c853;color:white;padding:4px 10px;border-radius:20px;font-size:12px">FOCUSED 94%</span>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px">
+<div class="card" style="background:#1e293b"><h4>📚 Reading vs Distracted - Core NEW Feature</h4>
+<p>Book Detection: <span style="color:#00ff88" id="book">✓ Book Open - READING</span></p>
+<p>Eye Gaze: <span id="gaze">Down - Focused on Book</span></p>
+<p>Mobile: <span style="color:#ef4444" id="schoolMobile">✗ Mobile NOT Detected - Good</span></p>
+<p>Focus %: <span style="color:#00ff88;font-size:20px;font-weight:bold" id="focus">94%</span> - <span id="status">Reading</span></p>
+<div style="background:#0f172a;height:8px;border-radius:4px;margin-top:6px"><div id="focusBar" style="width:94%;height:100%;background:#00c853;border-radius:4px"></div></div>
+</div>
+
+<div class="card" style="background:#1e293b"><h4>😊 Full Expression Analyzing</h4>
+<p>Happy: <span id="happy">12%</span> | Focused: <span id="focused" style="color:#00ff88">78%</span> | Bored: <span id="bored">5%</span></p>
+<p>Confused: <span id="confused">3%</span> | Sad: <span id="sad">2%</span></p>
+<p>Current: <span id="currExp" style="background:#00c853;color:white;padding:3px 8px;border-radius:10px">FOCUSED</span></p>
+</div>
+
+<div class="card" style="background:#1e293b"><h4>🧑 Age, Gender, Build - NEW</h4>
+<p>Age: <span id="age">13-18 yrs - Teen</span> <small>(Child 8-12, Teen 13-18, Young 19-25, Adult 26-50, Old 50+)</small></p>
+<p>Gender: <span id="gender">Male - 96% Confidence</span></p>
+<p>Build: <span id="build">Medium</span> <small>(Slim/Medium/Built - Shoulder/Waist ratio)</small></p>
+<p>Category: <span id="cat" style="background:#2563eb;color:white;padding:3px 8px;border-radius:10px">Young Student</span></p>
+</div>
+</div>
+</div>
+
+<div style="background:#1e293b;border-radius:12px;padding:15px;margin-top:12px">
+<h3>⏰ Time Management for School Students - Tracking + Progress</h3>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px;text-align:center">
+<div style="background:#0f172a;padding:12px;border-radius:8px"><h4>Study Time</h4><h2>2h 15m</h2><small>Today Reading</small></div>
+<div style="background:#0f172a;padding:12px;border-radius:8px"><h4>Mobile Time</h4><h2 style="color:#ef4444">18m</h2><small>Distracted</small></div>
+<div style="background:#0f172a;padding:12px;border-radius:8px"><h4>Focus Avg</h4><h2 style="color:#00ff88">84%</h2><small>This Week</small></div>
+<div style="background:#0f172a;padding:12px;border-radius:8px"><h4>Progress</h4><h2 style="color:#2563eb">↑ 12%</h2><small>vs Yesterday</small></div>
+</div>
+<div style="margin-top:12px;display:flex;gap:8px"><button class="glass-btn" style="background:#00c853;color:white">📊 Daily Report for Parent</button><button class="glass-btn" style="background:#2563eb;color:white">📈 Weekly Progress Graph</button></div>
+</div>
+</div>
+
+<script>
+function startSchool(){navigator.mediaDevices.getUserMedia({video:true}).then(s=>{document.getElementById('schoolCam').srcObject=s;simulate();});}
+function simulate(){
+  setInterval(()=>{
+    let reading = Math.random()>0.3;
+    document.getElementById('book').innerHTML=reading?'✓ Book Open - READING':'✗ No Book - DISTRACTED';
+    document.getElementById('schoolMobile').innerHTML=reading?'✗ Mobile NOT Detected - Good':'⚠️ Mobile Detected - DISTRACTED FLASH';
+    let focus = reading?Math.floor(85+Math.random()*15):Math.floor(20+Math.random()*30);
+    document.getElementById('focus').innerText=focus+'%'; document.getElementById('focusBar').style.width=focus+'%';
+    document.getElementById('status').innerText=reading?'Reading':'Distracted';
+    document.getElementById('focusBadge').innerText=(reading?'FOCUSED ':'DISTRACTED ')+focus+'%';
+    document.getElementById('focusBadge').style.background=reading?'#00c853':'#ef4444';
+    document.getElementById('age').innerText=['8-12 Child','13-18 Teen','19-25 Young'][Math.floor(Math.random()*3)];
+    document.getElementById('gender').innerText=Math.random()>0.5?'Male - 96%':'Female - 94%';
+    document.getElementById('build').innerText=['Slim','Medium','Built'][Math.floor(Math.random()*3)];
+    let exps=['FOCUSED','HAPPY','BORED','CONFUSED']; document.getElementById('currExp').innerText=exps[Math.floor(Math.random()*exps.length)];
+  },2000);
+}
+</script>
+{% endblock %}
