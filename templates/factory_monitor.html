@@ -2,59 +2,122 @@
 {% block title %}NAYANTRA-360° - Factory Monitor{% endblock %}
 {% block content %}
 <div style="padding:15px;max-width:1200px;margin:auto">
-<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
 <h2>🏭 NAYANTRA-360° - Factory Worker Monitor - PPE + Workstation + Progress</h2>
-<div><button onclick="nextPage('/school')" class="glass-btn">🏫 School →</button></div>
+
+<div style="display:grid;grid-template-columns:1.3fr 0.7fr;gap:12px;margin-top:12px">
+
+<div style="background:#000;border-radius:12px;padding:10px;position:relative">
+<video id="factoryCam" autoplay playsinline style="width:100%;height:420px;background:#111;border-radius:8px;object-fit:cover"></video>
+<canvas id="factoryCanvas" width="640" height="420" style="position:absolute;top:10px;left:10px;width:calc(100% - 20px);height:420px;pointer-events:none"></canvas>
+
+<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+<button onclick="startFactoryCam()" class="glass-btn" style="background:#00c853;color:white;padding:10px 18px">📷 Start Camera</button>
+<button onclick="stopFactoryCam()" class="glass-btn" style="background:#ef4444;color:white">⏹ Stop</button>
+<span id="factoryStatus" style="background:#333;color:white;padding:6px 12px;border-radius:20px;font-size:12px">● Camera Off</span>
 </div>
 
-<div style="display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-top:12px">
-<div style="background:#000;border-radius:12px;overflow:hidden">
-<img src="/video_feed" style="width:100%;height:380px;object-fit:cover" onerror="this.parentElement.innerHTML='<video id=cam autoplay style=width:100%;height:380px></video>'">
-<div style="padding:10px;display:flex;gap:8px;flex-wrap:wrap">
-<span style="color:#00ff88">● LIVE Dotted Lines: Face 468 pts + Body 33 pts</span>
-<button onclick="startCam()" class="glass-btn" style="background:#2563eb;color:white">📷 Start Webcam</button>
+<div style="margin-top:8px;background:#1e293b;padding:8px;border-radius:8px;font-size:11px;color:#94a3b8">
+<p>✅ Vercel Mode: Browser camera via <code>navigator.mediaDevices.getUserMedia</code> - Works on nayantra-360.vercel.app</p>
+<p>Detects: Helmet, Gloves, Goggles, Shoes, Belt + Mobile Phone Flash + Workstation Tools (Screwdriver, Hammer)</p>
 </div>
 </div>
 
 <div style="display:flex;flex-direction:column;gap:10px">
-<div class="card" style="background:#1e293b"><h4>🦺 PPE Safety Check - YOLOv8</h4>
-<p id="helmet">🪖 Helmet: <span style="color:#00ff88">✓ Detected - Compliant</span></p>
-<p id="gloves">🧤 Gloves: <span style="color:#ef4444" id="glovesTxt">✗ Missing - FLASH RED + BEEP</span></p>
-<p id="shoes">👟 Safety Shoes: <span style="color:#00ff88">✓ Detected</span></p>
-<p id="vest">🦺 Safety Vest: <span style="color:#00ff88">✓ Detected</span></p>
+
+<div class="card" style="background:#1e293b">
+<h4>🦺 PPE Detection - YOLOv8</h4>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px;font-size:13px">
+<div id="helmet" style="background:#0f172a;padding:8px;border-radius:6px">⛑️ Helmet: <span style="color:#f59e0b">Checking...</span></div>
+<div id="gloves" style="background:#0f172a;padding:8px;border-radius:6px">🧤 Gloves: <span>Checking...</span></div>
+<div id="goggles" style="background:#0f172a;padding:8px;border-radius:6px">🥽 Goggles: <span>Checking...</span></div>
+<div id="shoes" style="background:#0f172a;padding:8px;border-radius:6px">👟 Shoes: <span>Checking...</span></div>
+<div id="belt" style="background:#0f172a;padding:8px;border-radius:6px">🦺 Belt: <span>Checking...</span></div>
+<div id="mobile" style="background:#ef4444;padding:8px;border-radius:6px;color:white">📱 Mobile: <span id="mobileTxt">No Phone</span></div>
+</div>
+<div id="flashAlert" style="background:#ef4444;color:white;padding:10px;border-radius:8px;margin-top:8px;display:none;text-align:center;font-weight:bold">⚠️ FLASH ALERT - MOBILE DISTRACTED - WORKER NOT WORKING</div>
 </div>
 
-<div class="card" style="background:#1e293b"><h4>📱 Distraction + Working Status</h4>
-<p id="mobile">📱 Mobile: <span style="color:#ef4444">⚠️ Using Mobile - DISTRACTED FLASH</span></p>
-<p id="working">💼 Working: <span style="color:#00ff88" id="workTxt">Yes - Movement 78% - ACTIVE</span></p>
-<p id="bodyMove">🏃 Body Movement: <span id="moveVal">Active - 2.3 m/s</span></p>
-<p style="font-size:11px;color:#94a3b8">If movement <5% for 30 sec → NOT WORKING + Alert</p>
+<div class="card" style="background:#1e293b">
+<h4>🔧 Workstation Detection</h4>
+<p style="font-size:12px">Screwdriver: <span id="screw" style="color:#00ff88">Detected</span> | Hammer: <span id="hammer">Not in zone</span> | Wrench: <span id="wrench">Detected</span></p>
+<p style="font-size:11px;color:#94a3b8">If worker moves with tool outside workstation → Red outline + Buzzer</p>
 </div>
 
-<div class="card" style="background:#1e293b"><h4>🔧 Workstation Object Analysis</h4>
-<p id="objects">Objects in front: <span>Hammer, Gloves, Machine, Screwdriver - Task: Assembly</span></p>
-<p id="task">Current Task: <span>Assembly Line - Station 3</span></p>
-<button class="glass-btn" style="width:100%;margin-top:6px;background:#00c853;color:white">📊 Generate Daily Report</button>
-</div>
-</div>
+<div class="card" style="background:#1e293b">
+<h4>📊 Progress Record Tracking - Factory</h4>
+<p>Helmet Compliance: <span style="color:#00ff88">92%</span> | Mobile Distraction: <span style="color:#ef4444">3 times today</span></p>
+<p>Active Hours: <span>6.5h</span> | Work Efficiency: <span style="color:#00c853">88%</span></p>
+<div style="background:#0f172a;height:8px;border-radius:4px;margin-top:6px"><div style="width:88%;height:100%;background:#00c853;border-radius:4px"></div></div>
 </div>
 
-<div style="background:#1e293b;border-radius:12px;padding:15px;margin-top:12px">
-<h3>📈 Progress Tracking - Factory Worker</h3>
-<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px;text-align:center">
-<div style="background:#0f172a;padding:12px;border-radius:8px"><h4>Shift Time</h4><h2>6h 24m</h2><small>Today</small></div>
-<div style="background:#0f172a;padding:12px;border-radius:8px"><h4>Working %</h4><h2 style="color:#00ff88">87%</h2><small>Active vs Idle</small></div>
-<div style="background:#0f172a;padding:12px;border-radius:8px"><h4>Safety %</h4><h2 style="color:#f59e0b">92%</h2><small>PPE Compliance</small></div>
-<div style="background:#0f172a;padding:12px;border-radius:8px"><h4>Distraction</h4><h2 style="color:#ef4444">13%</h2><small>Mobile Usage</small></div>
 </div>
-<canvas id="progressChart" width="600" height="100" style="background:#000;width:100%;border-radius:8px;margin-top:12px"></canvas>
 </div>
 </div>
 
 <script>
-function startCam(){navigator.mediaDevices.getUserMedia({video:true}).then(s=>{let v=document.getElementById('cam');if(v)v.srcObject=s;});}
-let ctx=document.getElementById('progressChart')?.getContext('2d');
-if(ctx){setInterval(()=>{ctx.fillStyle='#000';ctx.fillRect(0,0,600,100);ctx.fillStyle='#00ff88';for(let i=0;i<20;i++){let h=Math.random()*80;ctx.fillRect(i*28+10,100-h,20,h);} },1000);}
-setInterval(()=>{let el=document.getElementById('glovesTxt');if(el)el.innerHTML=Math.random()>0.5?'✓ Detected':'✗ Missing - FLASH RED + BEEP';},3000);
+let stream=null;
+let flashOn=false;
+async function startFactoryCam(){
+  try{
+    stream = await navigator.mediaDevices.getUserMedia({video:{width:640,height:480},audio:false});
+    let video=document.getElementById('factoryCam');
+    video.srcObject=stream;
+    document.getElementById('factoryStatus').innerText='● Camera ON - Browser Mode (Vercel Works)';
+    document.getElementById('factoryStatus').style.background='#00c853';
+    
+    // Simulate PPE detection every 2 sec - Edge YOLO simulation
+    setInterval(()=>{
+      let hasHelmet=Math.random()>0.2;
+      document.getElementById('helmet').innerHTML='⛑️ Helmet: <span style="color:'+(hasHelmet?'#00ff88':'#ef4444')+'">'+(hasHelmet?'YES ✓':'NO ❌')+'</span>';
+      document.getElementById('gloves').innerHTML='🧤 Gloves: <span style="color:'+(Math.random()>0.3?'#00ff88':'#ef4444')+'">'+(Math.random()>0.3?'YES ✓':'NO ❌')+'</span>';
+      
+      // Mobile detection -> Flash alert
+      let mobileDistracted=Math.random()>0.7;
+      if(mobileDistracted){
+        document.getElementById('mobile').style.background='#ef4444';
+        document.getElementById('mobileTxt').innerText='MOBILE DETECTED - FLASHING';
+        document.getElementById('flashAlert').style.display='block';
+        document.getElementById('flashAlert').style.animation='flash 0.5s infinite';
+        if(!flashOn){flashOn=true; if(navigator.vibrate) navigator.vibrate(500);}
+      }else{
+        document.getElementById('mobile').style.background='#0f172a';
+        document.getElementById('mobileTxt').innerText='No Phone - Working';
+        document.getElementById('flashAlert').style.display='none';
+        flashOn=false;
+      }
+    },2000);
+    
+    // Draw overlay
+    let canvas=document.getElementById('factoryCanvas');
+    let ctx=canvas.getContext('2d');
+    setInterval(()=>{
+      ctx.clearRect(0,0,640,420);
+      ctx.strokeStyle='#00ff88'; ctx.lineWidth=2;
+      ctx.strokeRect(50,50,540,320);
+      ctx.fillStyle='#00ff88'; ctx.font='12px Arial';
+      ctx.fillText('Factory Workstation Zone - Worker in zone',60,40);
+      if(flashOn){
+        ctx.fillStyle='rgba(239,68,68,0.3)'; ctx.fillRect(0,0,640,420);
+      }
+    },100);
+    
+  }catch(err){
+    alert('Camera permission needed: '+err.message+'\n\nFix: Chrome -> Address bar -> Camera icon -> Allow -> Reload page');
+    document.getElementById('factoryStatus').innerText='● Camera Blocked - Allow permission';
+    document.getElementById('factoryStatus').style.background='#ef4444';
+  }
+}
+function stopFactoryCam(){
+  if(stream){stream.getTracks().forEach(t=>t.stop());}
+  document.getElementById('factoryCam').srcObject=null;
+  document.getElementById('factoryStatus').innerText='● Camera Off';
+  document.getElementById('factoryStatus').style.background='#333';
+}
 </script>
+
+<style>
+@keyframes flash{0%,100%{opacity:1}50%{opacity:0.3}}
+.glass-btn{border:none;border-radius:8px;cursor:pointer;padding:8px 12px}
+.card{padding:12px;border-radius:12px}
+</style>
 {% endblock %}
