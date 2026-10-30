@@ -76,5 +76,7 @@ def gen_video():
 def video_feed():
     return Response(gen_video(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
+# For Vercel
+app = app
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
