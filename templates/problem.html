@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}NAYANTRA-360° - Problem Statement{% endblock %}
+{% block content %}
+<div style="padding:25px;max-width:1100px;margin:auto">
+<h1 style="font-size:36px;text-align:center">⚠️ Problem Statement - Why NAYANTRA-360°?</h1>
+<p style="text-align:center;color:#94a3b8;margin:10px 0">Industry Problems We Solve - Factory + School + Healthcare + Accessibility</p>
+
+<img src="/static/images/problem.jpg" style="width:100%;border-radius:16px;margin:20px 0" onerror="this.style.display='none'">
+
+<div class="grid3">
+<div class="card" style="border-left:4px solid #ef4444">
+<h3>🏭 1. Factory Worker Risk - Safety Non-Compliance</h3>
+<ul style="margin:10px 0 0 18px;line-height:1.8">
+<li>Workers working without helmet, gloves, safety shoes - 80% accidents due to PPE miss</li>
+<li>Distracted using mobile during machine operation - Flash needed</li>
+<li>No real-time workstation object analysis - what tools in front?</li>
+<li>No progress tracking - working or idle? Body movement analysis missing</li>
+<li>Current CCTV only records, doesn't alert in real-time</li>
+</ul>
+<p style="margin-top:10px;background:#ef444414;padding:8px;border-radius:8px">💰 Loss: ₹50L per accident + life risk</p>
+</div>
+
+<div class="card" style="border-left:4px solid #f59e0b">
+<h3>🏫 2. School / College Student Disengagement</h3>
+<ul style="margin:10px 0 0 18px;line-height:1.8">
+<li>Students not focused - Reading vs Distracted on mobile - No detection</li>
+<li>Full expression analyzing missing - Bored, Confused, Focused, Happy?</li>
+<li>Age, Gender, Build detection not done - Old, Young, Child classification needed for personalized learning</li>
+<li>Time Management for school students absent - Study time vs mobile time?</li>
+<li>No tracking and progress - Parent/Teacher don't know daily focus %</li>
+<li>College students bunking - attendance + focus not tracked</li>
+</ul>
+<p style="margin-top:10px;background:#f59e0b14;padding:8px;border-radius:8px">📉 Result: 60% students distracted in class (NSSO 2023)</p>
+</div>
+
+<div class="card" style="border-left:4px solid #8b5cf6">
+<h3>🧑‍🦽 3. Mental & Disabled Communication Barrier</h3>
+<ul style="margin:10px 0 0 18px;line-height:1.8">
+<li>Mentally disabled persons speak unclear whispers - Others can't understand</li>
+<li>No voice pattern analysis - His own voice tone not cloned</li>
+<li>No sign language to speech conversion - Needs command mode</li>
+<li>No activity monitoring via webcam - If needs help, no alert</li>
+<li>No gesture tracking progress record - Improvement % unknown</li>
+<li>Speaks in his own voice but unclear - Need AI to speak for him in his cloned voice</li>
+</ul>
+<p style="margin-top:10px;background:#8b5cf614;padding:8px;border-radius:8px">❤️ Impact: 2.2 Cr disabled in India lack assistive tech</p>
+</div>
+
+<div class="card" style="border-left:4px solid #06b6d4">
+<h3>🩺 4. Healthcare - No Biological Age & Organ Scan</h3>
+<ul style="margin:10px 0 0 18px;line-height:1.8">
+<li>Only HR/SpO2 tracked, not Biological Age, Skin Age, Heart Age</li>
+<li>No brain MRI dotted lines analysis - Internal vitals energy unknown</li>
+<li>No body heat sensing organ detection - Brain, Heart, Lungs via thermal missing</li>
+<li>Rural areas no affordable health scan</li>
+<li>NASA astronauts face accelerated aging - No remote monitor</li>
+</ul>
+</div>
+
+<div class="card" style="border-left:4px solid #10b981">
+<h3>🌐 5. Language & Accessibility Barrier</h3>
+<ul style="margin:10px 0 0 18px;line-height:1.8">
+<li>Regional languages not supported - Hindi, Tamil, Telugu, Bhojpuri needed</li>
+<li>Major foreign languages missing - Spanish, French, German, Japanese, Arabic for global factories</li>
+<li>Website no translation, no light/dark mode, no welcome voice</li>
+<li>No natural female voice in regional languages</li>
+<li>No mode switching, glass buttons, scroll navigation</li>
+</ul>
+</div>
+
+<div class="card" style="background:#2563eb;color:white">
+<h3>💡 Why Now? Market Need</h3>
+<p>• India has 1.4B people, 50 Cr factory workers + students + 2.2 Cr disabled<br>
+• Factory safety market: $8B by 2028<br>
+• EdTech attention tracking: $4B market<br>
+• Assistive tech for disabled: $30B global<br>
+• IIIT Hyderabad Avishkar needs deep-tech PoC - We have it live<br>
+• NASA Space Apps Human Health in Space needs same tech</p>
+</div>
+</div>
+
+<div style="text-align:center;margin:25px 0;display:flex;gap:10px;justify-content:center">
+<button onclick="nextPage('/')" class="glass-btn">← Back: Home</button>
+<button onclick="nextPage('/solution')" class="glass-btn" style="background:#00c853;color:white">Next: Solution →</button>
+</div>
+</div>
+{% endblock %}
