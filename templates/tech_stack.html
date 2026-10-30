@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}NAYANTRA-360° - Tech Stack{% endblock %}
+{% block content %}
+<div style="padding:25px;max-width:1100px;margin:auto">
+<h1 style="font-size:36px;text-align:center">💻 Tech Stack - Hardware + Software + Architecture</h1>
+<img src="/static/images/architecture.jpg" style="width:100%;border-radius:16px;margin:20px 0" onerror="this.style.display='none'">
+
+<div class="grid3">
+<div class="card"><h3>🔧 Hardware Layer</h3>
+<p><b>ESP32:</b> WiFi/BT, GPIO sensors, Edge capture<br>
+<b>Raspberry Pi 4:</b> On-device processing, Camera interface, Sensor hub<br>
+<b>Sensors:</b> MAX30102 HR/SpO2, DS18B20 Temp, GSR, Moisture, pH, TGAM1 EEG, MPX5010 Resp, Thermal sensor, IMU, Mic, MRI input<br>
+<b>Camera:</b> USB HD webcam for factory/school/disabled monitoring</p></div>
+
+<div class="card"><h3>🐍 Python Flask Backend</h3>
+<p>RESTful API, Data Ingestion, Real-time Pipeline, Auth & Routing, Firebase RTDB Asia-Southeast1, Vercel deployment<br>
+<b>Code:</b> app.py handles 12 routes, video streaming via multipart/x-mixed-replace</p></div>
+
+<div class="card"><h3>👁️ CV YOLOv8 + Mediapipe</h3>
+<p><b>YOLOv8n:</b> Object detection - Helmet, Gloves, Shoes, Mobile, Person, Hammer, Book<br>
+<b>Mediapipe:</b> Pose 33 points dotted, Face Mesh 468 points dotted, Hands 21 points dotted<br>
+<b>DeepFace:</b> Emotion (7 emotions), Age, Gender, Race<br>
+<b>Build Detection:</b> Custom classifier - Slim/Medium/Built based on shoulder/waist ratio</p></div>
+
+<div class="card"><h3>🎙️ Whisper AI + Speech</h3>
+<p><b>Whisper base:</b> Speech-to-Text, Voice Transcription, Multilingual ASR, Whisper analysis for unclear disabled voice<br>
+<b>SpeechRecognition:</b> Command mode detection "Command Mode"<br>
+<b>Pipeline:</b> Whisper → LLM RAG → Intent clarification</p></div>
+
+<div class="card"><h3>🧠 LLM + RAG + Generative AI</h3>
+<p><b>LLM:</b> Flan-T5 base for intent understanding<br>
+<b>RAG:</b> Retrieval-Augmented Generation for contextual reasoning from knowledge base<br>
+<b>Generative AI:</b> Image generation for reports, Synthetic data for training, Anomaly generation<br>
+<b>Use:</b> Whisper unclear → Clear intent, Sign gesture → Sentence</p></div>
+
+<div class="card"><h3>🔊 TTS + Voice Clone</h3>
+<p><b>gTTS + Googletrans:</b> Text-to-Speech in Hindi, Tamil, Telugu, Bhojpuri, English, Spanish, French, German, Japanese, Arabic<br>
+<b>Coqui TTS XTTS-v2:</b> Voice Cloning - Records his voice sample → Clones tone → Speaks for him in his own voice<br>
+<b>Natural Female Voice:</b> Welcome voice on homepage</p></div>
+
+<div class="card"><h3>📊 Frontend - Glass + Modes</h3>
+<p><b>Glass Buttons:</b> backdrop-filter blur 20px, glass morphism top nav<br>
+<b>Dark/Light:</b> CSS variables toggle<br>
+<b>Translation:</b> 10 languages<br>
+<b>Scroll:</b> Up/Down fixed buttons, Arrow navigation between pages<br>
+<b>Canvas:</b> Hospital monitor ECG/PPG/Resp waveforms 60fps</p></div>
+
+<div class="card" style="background:#020617;color:#00ff88;border:1px solid #00ff88"><h3>🔄 Architecture Flow</h3>
+<p>Hardware Sensors + Webcam + Mic<br>↓<br>ESP32 + Raspberry Pi (Edge)<br>↓<br>Python Flask Backend (REST API, Firebase)<br>↓<br>AI/ML Layer: YOLOv8 + Mediapipe + Whisper + LLM RAG + Generative AI + TTS<br>↓<br>Application Layer: 8 Pages - Health, Factory, School, College, Sign, MRI, Whisper, Investment<br>↓<br>Dashboard + Alerts + Progress Tracking + Regional Voice</p></div>
+
+<div class="card"><h3>☁️ Deployment</h3>
+<p><b>Current:</b> bio-revive-ai-genius.vercel.app (old repo)<br>
+<b>New:</b> nayantra-360.vercel.app (new repo)<br>
+<b>GitHub:</b> Old bio-revive-360 (reference) + New nayantra-360 (fresh build)<br>
+<b>Firebase:</b> biorevive-360-default-rtdb.asia-southeast1.firebasedatabase.app<br>
+<b>Live:</b> 29.5°C temp, 65% moisture, 7.2 pH realtime</p></div>
+</div>
+
+<div style="text-align:center;display:flex;gap:10px;justify-content:center;margin:20px 0">
+<button onclick="nextPage('/solution')" class="glass-btn">← Solution</button>
+<button onclick="nextPage('/investment')" class="glass-btn" style="background:#2563eb;color:white">Next: Investment Plan →</button>
+</div>
+</div>
+{% endblock %}
