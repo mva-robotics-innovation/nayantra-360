@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="hero">
+<h1 style="font-size:48px">👁️ NAYANTRA-360°</h1>
+<p style="font-size:20px;color:#94a3b8;margin:10px 0">Your Eyes Everywhere - Industry Ready + Customer Ready + Investor Ready</p>
+<p>For Avishkar Venture Studio Winter Cohort 2026 at CIE, IIIT Hyderabad | Deeptech, Medtech, Mediatech</p>
+<img src="/static/images/hero.jpg" style="width:100%;max-width:1000px;border-radius:16px;margin:20px auto;display:block" onerror="this.style.display='none'">
+<div style="margin:20px">
+<button onclick="nextPage('/problem')" class="glass-btn" style="padding:12px 20px;background:#2563eb;color:white">→ Start: Problem Statement →</button>
+</div>
+</div>
+
+<div class="grid3">
+<div class="card"><h3>🩺 Health Scan</h3><p>HR, SpO2, Temp 29.5°C, GSR, pH, EEG live. Old Bio Revive upgraded.</p></div>
+<div class="card"><h3>🏭 Factory Monitor</h3><p>PPE Helmet/Gloves/Shoes, Mobile distracted flash, Workstation objects, Progress tracking.</p></div>
+<div class="card"><h3>🏫 School Monitor - NEW</h3><p>Reading vs Distracted, Mobile shows distracted, Expression analyzing, Age Gender Build Old Young, Time Management.</p></div>
+<div class="card"><h3>🎓 College Monitor - NEW</h3><p>Time management, focus tracking, attendance, progress report.</p></div>
+<div class="card"><h3>🤟 Sign Language</h3><p>Command Mode → Gesture → Speech in Hindi, Tamil, Telugu, Bhojpuri + Foreign languages.</p></div>
+<div class="card"><h3>🧠 MRI Thermal</h3><p>Brain MRI dotted lines, organ detection via body heat, internal vitals energy.</p></div>
+<div class="card"><h3>🎙️ Whisper Voice Clone</h3><p>Unclear whispers → Clear speech, voice clone of disabled person, activity monitoring.</p></div>
+<div class="card"><h3>💻 Tech Stack</h3><p>ESP32, Pi, YOLOv8, Mediapipe, Whisper, LLM RAG, Generative AI, TTS. Architecture + flow diagram.</p></div>
+<div class="card" style="background:#2563eb;color:white"><h3>💰 Investment Plan</h3><p>Customer segments, Industry ready, ₹10L use, ROI, GTM for IIIT Hyderabad.</p><button onclick="nextPage('/investment')" class="glass-btn" style="background:white;color:#0f172a">View Investment →</button></div>
+</div>
+
+<div style="text-align:center;padding:20px">
+<img src="/static/images/architecture.jpg" style="width:100%;max-width:900px;border-radius:12px" onerror="this.style.display='none'">
+<img src="/static/images/problem.jpg" style="width:100%;max-width:900px;border-radius:12px;margin-top:15px" onerror="this.style.display='none'">
+</div>
+{% endblock %}
