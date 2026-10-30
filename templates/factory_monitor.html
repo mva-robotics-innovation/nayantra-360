@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}NAYANTRA-360° - Factory Monitor{% endblock %}
+{% block content %}
+<div style="padding:15px;max-width:1200px;margin:auto">
+<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+<h2>🏭 NAYANTRA-360° - Factory Worker Monitor - PPE + Workstation + Progress</h2>
+<div><button onclick="nextPage('/school')" class="glass-btn">🏫 School →</button></div>
+</div>
+
+<div style="display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-top:12px">
+<div style="background:#000;border-radius:12px;overflow:hidden">
+<img src="/video_feed" style="width:100%;height:380px;object-fit:cover" onerror="this.parentElement.innerHTML='<video id=cam autoplay style=width:100%;height:380px></video>'">
+<div style="padding:10px;display:flex;gap:8px;flex-wrap:wrap">
+<span style="color:#00ff88">● LIVE Dotted Lines: Face 468 pts + Body 33 pts</span>
+<button onclick="startCam()" class="glass-btn" style="background:#2563eb;color:white">📷 Start Webcam</button>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:10px">
+<div class="card" style="background:#1e293b"><h4>🦺 PPE Safety Check - YOLOv8</h4>
+<p id="helmet">🪖 Helmet: <span style="color:#00ff88">✓ Detected - Compliant</span></p>
+<p id="gloves">🧤 Gloves: <span style="color:#ef4444" id="glovesTxt">✗ Missing - FLASH RED + BEEP</span></p>
+<p id="shoes">👟 Safety Shoes: <span style="color:#00ff88">✓ Detected</span></p>
+<p id="vest">🦺 Safety Vest: <span style="color:#00ff88">✓ Detected</span></p>
+</div>
+
+<div class="card" style="background:#1e293b"><h4>📱 Distraction + Working Status</h4>
+<p id="mobile">📱 Mobile: <span style="color:#ef4444">⚠️ Using Mobile - DISTRACTED FLASH</span></p>
+<p id="working">💼 Working: <span style="color:#00ff88" id="workTxt">Yes - Movement 78% - ACTIVE</span></p>
+<p id="bodyMove">🏃 Body Movement: <span id="moveVal">Active - 2.3 m/s</span></p>
+<p style="font-size:11px;color:#94a3b8">If movement <5% for 30 sec → NOT WORKING + Alert</p>
+</div>
+
+<div class="card" style="background:#1e293b"><h4>🔧 Workstation Object Analysis</h4>
+<p id="objects">Objects in front: <span>Hammer, Gloves, Machine, Screwdriver - Task: Assembly</span></p>
+<p id="task">Current Task: <span>Assembly Line - Station 3</span></p>
+<button class="glass-btn" style="width:100%;margin-top:6px;background:#00c853;color:white">📊 Generate Daily Report</button>
+</div>
+</div>
+</div>
+
+<div style="background:#1e293b;border-radius:12px;padding:15px;margin-top:12px">
+<h3>📈 Progress Tracking - Factory Worker</h3>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px;text-align:center">
+<div style="background:#0f172a;padding:12px;border-radius:8px"><h4>Shift Time</h4><h2>6h 24m</h2><small>Today</small></div>
+<div style="background:#0f172a;padding:12px;border-radius:8px"><h4>Working %</h4><h2 style="color:#00ff88">87%</h2><small>Active vs Idle</small></div>
+<div style="background:#0f172a;padding:12px;border-radius:8px"><h4>Safety %</h4><h2 style="color:#f59e0b">92%</h2><small>PPE Compliance</small></div>
+<div style="background:#0f172a;padding:12px;border-radius:8px"><h4>Distraction</h4><h2 style="color:#ef4444">13%</h2><small>Mobile Usage</small></div>
+</div>
+<canvas id="progressChart" width="600" height="100" style="background:#000;width:100%;border-radius:8px;margin-top:12px"></canvas>
+</div>
+</div>
+
+<script>
+function startCam(){navigator.mediaDevices.getUserMedia({video:true}).then(s=>{let v=document.getElementById('cam');if(v)v.srcObject=s;});}
+let ctx=document.getElementById('progressChart')?.getContext('2d');
+if(ctx){setInterval(()=>{ctx.fillStyle='#000';ctx.fillRect(0,0,600,100);ctx.fillStyle='#00ff88';for(let i=0;i<20;i++){let h=Math.random()*80;ctx.fillRect(i*28+10,100-h,20,h);} },1000);}
+setInterval(()=>{let el=document.getElementById('glovesTxt');if(el)el.innerHTML=Math.random()>0.5?'✓ Detected':'✗ Missing - FLASH RED + BEEP';},3000);
+</script>
+{% endblock %}
