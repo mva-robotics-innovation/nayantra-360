@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}NAYANTRA-360° - College Monitor{% endblock %}
+{% block content %}
+<div style="padding:15px;max-width:1200px;margin:auto">
+<h2>🎓 NAYANTRA-360° - College Monitor - Time Management + Tracking + Progress</h2>
+
+<div style="display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-top:12px">
+<div style="background:#000;border-radius:12px;overflow:hidden">
+<video id="collegeCam" autoplay style="width:100%;height:360px;background:#111"></video>
+<div style="padding:10px;display:flex;gap:8px"><button onclick="startCollege()" class="glass-btn" style="background:#2563eb;color:white">📷 Start College Cam</button><span style="color:#00ff88">● Attendance + Focus Tracking LIVE</span></div>
+</div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<div class="card" style="background:#1e293b"><h4>📅 Attendance + Focus</h4>
+<p>Present: <span style="color:#00ff88">✓ Yes - Face Detected</span></p>
+<p>Age: <span id="cAge">19-25 Young Adult</span> | Gender: <span id="cGen">Male</span> | Build: <span id="cBuild">Built</span></p>
+<p>Expression: <span id="cExp" style="background:#2563eb;color:white;padding:3px 8px;border-radius:10px">FOCUSED 88%</span></p>
+<p>Mobile Distracted: <span id="cMob" style="color:#00ff88">No - Studying</span></p>
+</div>
+<div class="card" style="background:#1e293b"><h4>⏰ Time Management - College Student</h4>
+<p>Lecture Time: <span id="lec">1h 20m / 2h</span></p>
+<p>Self Study: <span id="self">45m</span></p>
+<p>Break: <span id="brk">10m</span></p>
+<div style="background:#0f172a;height:10px;border-radius:5px;margin-top:8px"><div id="timeBar" style="width:70%;height:100%;background:#2563eb;border-radius:5px"></div></div>
+</div>
+</div>
+</div>
+
+<div style="background:#1e293b;border-radius:12px;padding:15px;margin-top:12px">
+<h3>📊 Tracking and Progress - College Student - Same as Factory</h3>
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:10px;text-align:center">
+<div style="background:#0f172a;padding:12px;border-radius:8px"><h4>Today Focus</h4><h2 style="color:#00ff88">88%</h2></div>
+<div style="background:#0f172a;padding:12px;border-radius:8px"><h4>Week Avg</h4><h2>81%</h2></div>
+<div style="background:#0f172a;padding:12px;border-radius:8px"><h4>Attendance</h4><h2 style="color:#2563eb">92%</h2></div>
+<div style="background:#0f172a;padding:12px;border-radius:8px"><h4>Distraction ↓</h4><h2 style="color:#00ff88">↓ 15%</h2></div>
+<div style="background:#0f172a;padding:12px;border-radius:8px"><h4>Rank</h4><h2>Top 10%</h2></div>
+</div>
+<div style="margin-top:12px"><canvas id="collegeChart" width="700" height="120" style="background:#000;width:100%;border-radius:8px"></canvas></div>
+</div>
+
+<div style="text-align:center;margin:15px 0;display:flex;gap:10px;justify-content:center">
+<button onclick="nextPage('/school')" class="glass-btn">← School</button>
+<button onclick="nextPage('/sign')" class="glass-btn" style="background:#00c853;color:white">Next: Sign Language →</button>
+</div>
+</div>
+
+<script>
+function startCollege(){navigator.mediaDevices.getUserMedia({video:true}).then(s=>document.getElementById('collegeCam').srcObject=s);}
+let ctx2=document.getElementById('collegeChart')?.getContext('2d');
+if(ctx2){setInterval(()=>{ctx2.fillStyle='#000';ctx2.fillRect(0,0,700,120);ctx2.fillStyle='#2563eb';for(let i=0;i<25;i++){ctx2.fillRect(i*26+10,120-Math.random()*100,18,Math.random()*100);}},1000);}
+setInterval(()=>{document.getElementById('cAge').innerText=['19-25 Young','26-35 Adult'][Math.floor(Math.random()*2)];},3000);
+</script>
+{% endblock %}
