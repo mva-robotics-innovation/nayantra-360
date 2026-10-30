@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}NAYANTRA-360° - Solution{% endblock %}
+{% block content %}
+<div style="padding:25px;max-width:1100px;margin:auto">
+<h1 style="font-size:36px;text-align:center">✅ Solution - NAYANTRA-360° All-in-One Platform</h1>
+<p style="text-align:center;color:#94a3b8">One Platform, 8 Solutions - Industry Ready + Customer Ready</p>
+
+<div class="grid3">
+<div class="card" style="background:#10b981;color:white"><h3>🏭 Factory Solution</h3>
+<p><b>Webcam captures:</b> Face dotted lines (468 points), Full body pose (33 points) dotted<br>
+<b>PPE:</b> YOLOv8 detects Helmet, Gloves, Shoes - If missing → RED FLASH + Beep<br>
+<b>Mobile:</b> Cell phone in hand → "DISTRACTED" flash in webcam<br>
+<b>Body Movement:</b> Movement threshold < 5% for 30 sec → "NOT WORKING"<br>
+<b>Workstation:</b> Objects placed in front - Hammer, Screwdriver, Machine → Task analysis<br>
+<b>Progress:</b> Working hours, Safety %, Daily report</p></div>
+
+<div class="card" style="background:#f59e0b;color:white"><h3>🏫 School / College Solution - NEW</h3>
+<p><b>Reading vs Distracted:</b> Book open + eye gaze down = READING 94% Focused. Mobile in hand = DISTRACTED 82%<br>
+<b>Expression:</b> DeepFace FER - Happy, Sad, Bored, Focused, Confused, Neutral<br>
+<b>Age/Gender/Build:</b> Age: Child 8-12, Teen 13-18, Young 19-25, Adult 26-50, Old 50+ | Gender M/F | Build Slim/Medium/Built<br>
+<b>Time Management:</b> Study timer, Focus %, Break alerts, Daily progress graph for students<br>
+<b>Tracking:</b> Attendance + Focus %, Parent dashboard, Teacher analytics</p></div>
+
+<div class="card" style="background:#8b5cf6;color:white"><h3>🧑‍🦽 Disabled Tracking Solution</h3>
+<p><b>Sign Language:</b> Say "Command Mode" → Webcam starts gesture mode → Mediapipe Hands 21 points dotted → ASL to text<br>
+<b>Speech:</b> Converts to realistic human voice in Hindi, Tamil, Telugu, Bhojpuri + Spanish, French, German, Japanese, Arabic<br>
+<b>Whisper Analysis:</b> Whisper model hears unclear whispers → LLM RAG analyzes intent → Clear text<br>
+<b>Voice Clone:</b> Records his voice sample → Coqui XTTS-v2 clones his voice tone → Speaks for him in his own cloned voice<br>
+<b>Progress Tracking:</b> Gesture frequency, Help calls, Speech clarity % improvement, Activity via webcam</p></div>
+
+<div class="card"><h3>🩺 Health Scan - Upgraded BIO Revive</h3><p>6 sensors: MAX30102 HR/SpO2, DS18B20 Temp 29.5°C live, GSR 1.6µS 65% pH 7.2, Resp, EEG. Canvas hospital monitor 5-channel + 6 separate. Firebase realtime.</p></div>
+<div class="card"><h3>🧠 Advanced MRI + Thermal</h3><p>MRI upload → Canny edge → Dotted lines contour every 10th point → Brain regions detected. Body heat sensing → Thermal map shows Brain, Heart, Lungs, Liver energy.</p></div>
+<div class="card"><h3>🌐 Language + UI Solution</h3><p>Welcome voice natural female in all regional + foreign languages. Website translation Hindi, English, Tamil, Telugu, Bhojpuri. Light/Dark mode switch, Glass buttons top nav, Scroll up/down arrows, Arrow navigation between pages.</p></div>
+</div>
+
+<div style="background:#1e293b;border-radius:16px;padding:20px;margin:20px 0">
+<h3 style="text-align:center">🔄 How It Works - End to End Flow</h3>
+<p style="text-align:center;margin-top:10px;line-height:2">
+Webcam / Sensors / Mic → ESP32 + Raspberry Pi → Python Flask Backend → CV YOLOv8 + Mediapipe (Pose, Face, Hands dotted) → Whisper AI (Speech) → LLM RAG (Intent) → Generative AI + TTS Voice Clone → Regional Translation → Dashboard with Progress Tracking → Alert Flash if Distracted / PPE Missing / Help Needed
+</p>
+</div>
+
+<div style="text-align:center;display:flex;gap:10px;justify-content:center;margin:20px 0">
+<button onclick="nextPage('/problem')" class="glass-btn">← Problem</button>
+<button onclick="nextPage('/tech')" class="glass-btn" style="background:#2563eb;color:white">Next: Tech Stack →</button>
+</div>
+</div>
+{% endblock %}
