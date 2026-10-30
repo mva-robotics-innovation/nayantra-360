@@ -53,7 +53,7 @@ def investment():
     return render_template('investment.html')
 @app.route('/api/status')
 def api_status():
-    return {"project":"NAYANTRA-360°","status":"LIVE","platform":"Vercel"}
+   return {"project":"TRINETRA","status":"LIVE"}
 
 def gen_video():
     if not HAS_CV:
