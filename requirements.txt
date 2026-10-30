@@ -1,0 +1,14 @@
+flask==3.0.0
+opencv-python==4.9.0.80
+mediapipe==0.10.9
+ultralytics==8.1.0
+torch==2.2.0
+transformers==4.38.0
+openai-whisper==20231117
+SpeechRecognition==3.0.5
+gTTS==2.5.1
+googletrans==4.0.0-rc1
+deepface==0.0.79
+numpy==1.26.3
+pillow==10.2.0
+TTS==0.22.0
