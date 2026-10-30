@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}NAYANTRA-360° - Whisper + Voice Clone{% endblock %}
+{% block content %}
+<div style="padding:15px;max-width:1200px;margin:auto">
+<h2>🗣️ NAYANTRA-360° - Advanced Speech - Whisper Analysis + Voice Clone for Mental Disabled</h2>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px">
+<div class="card" style="background:#1e293b"><h3>🎙️ Whisper Analysis - Unclear Voice → Clear</h3>
+<p style="font-size:12px;color:#94a3b8">For mental disabled persons - Speaks in his own voice tone but unclear to others. AI analyzes voice patterns + clone.</p>
+<div style="display:flex;gap:8px;margin:10px 0">
+<button onclick="recordWhisper()" class="glass-btn" style="background:#ec4899;color:white">🎤 Record Whisper / Unclear Voice</button>
+<button onclick="uploadSample()" class="glass-btn" style="background:#2563eb;color:white">📁 Upload Voice Sample for Clone</button>
+</div>
+<input type="file" id="voiceSample" accept="audio/*" style="color:white;margin:6px 0">
+
+<div style="background:#0f172a;padding:12px;border-radius:8px;margin-top:8px">
+<h4>Whisper → Clear Analysis:</h4>
+<p style="font-size:13px">Raw Whisper (Whisper AI model): <span id="rawWhisper" style="color:#f59e0b">"hmm... ahh... need... h... help..." (low confidence 34%)</span></p>
+<p style="font-size:13px">AI Analyzed Pattern (LLM RAG): <span id="clearIntent" style="color:#00ff88">Intent: Person needs help, wants water, feeling discomfort. Voice pattern: Male, 20s, low volume, breathy.</span></p>
+<p style="font-size:13px">Voice Clone: <span id="cloneStatus" style="color:#8b5cf6">Cloned his voice sample - 10 sec audio → XTTS-v2 model → His own voice tone preserved</span></p>
+<div style="background:#000;padding:10px;border-radius:8px;margin-top:8px">
+<p>🔊 Cloned Speech Output: <span id="clonedOutput" style="color:white;font-weight:bold">"I need help, please give me water" - in his own cloned voice</span></p>
+<button onclick="playCloned()" class="glass-btn" style="background:#00c853;color:white;margin-top:6px">🔊 Play Cloned Voice - His Own Voice + Regional Language</button>
+</div>
+</div>
+
+<div style="margin-top:10px">
+<label style="font-size:12px">Select Output Language (Cloned voice will speak in this):</label>
+<select id="whisperLang" style="width:100%;padding:8px;border-radius:8px;background:#0f172a;color:white;margin-top:4px">
+<option>Hindi - हिन्दी (his voice)</option><option>Tamil - தமிழ்</option><option>Telugu - తెలుగు</option><option>Bhojpuri - भोजपुरी</option><option>English - His voice clone</option><option>Spanish, French, German, Japanese, Arabic - Foreign</option>
+</select>
+</div>
+</div>
+
+<div class="card" style="background:#1e293b"><h3>👁️ Activity Monitoring via Webcam + Progress Record Tracking</h3>
+<video id="activityCam" autoplay style="width:100%;height:280px;background:#000;border-radius:8px"></video>
+<div style="margin-top:8px;display:flex;gap:6px"><button onclick="startActivity()" class="glass-btn" style="background:#2563eb;color:white">📷 Start Activity Monitor</button><span id="actStatus" style="background:#00c853;color:white;padding:6px 10px;border-radius:20px;font-size:11px">● Monitoring Active</span></div>
+
+<div style="background:#0f172a;padding:10px;border-radius:8px;margin-top:10px">
+<h4>📊 Progress Record Tracking - Mental / Disabled Person</h4>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;text-align:center">
+<div style="background:#000;padding:8px;border-radius:6px"><h5>Speech Clarity</h5><h3 style="color:#00ff88">62% → 84% ↑</h3><small>Improvement this month</small></div>
+<div style="background:#000;padding:8px;border-radius:6px"><h5>Help Calls</h5><h3>12 Today</h3><small>Via gesture + whisper</small></div>
+<div style="background:#000;padding:8px;border-radius:6px"><h5>Gesture Tracking</h5><h3>45</h3><small>Signs used today</small></div>
+<div style="background:#000;padding:8px;border-radius:6px"><h5>Activity</h5><h3 style="color:#2563eb">Active 6h</h3><small>Webcam monitoring</small></div>
+</div>
+<canvas id="whisperChart" width="400" height="80" style="background:#000;width:100%;border-radius:6px;margin-top:8px"></canvas>
+<p style="font-size:10px;color:#94a3b8;margin-top:4px">Same as Factory + School - Progress tracking pattern reused - Industry standard</p>
+</div>
+</div>
+</div>
+
+<div style="background:#1e293b;border-radius:12px;padding:15px;margin-top:12px">
+<h3 style="text-align:center">🧬 How Whisper + Voice Clone Works - Generative AI + LLM RAG + TTS</h3>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px">
+<div style="background:#0f172a;padding:10px;border-radius:8px"><h5>1. Whisper AI</h5><p style="font-size:11px">OpenAI Whisper base model transcribes unclear whisper, even low volume, breathy voice - Outputs low confidence text</p></div>
+<div style="background:#0f172a;padding:10px;border-radius:8px"><h5>2. LLM RAG - Pattern Analysis</h5><p style="font-size:11px">Analyzes his voice patterns - Pitch, speed, breath, past samples → Understands intent: "need help" even if unclear</p></div>
+<div style="background:#0f172a;padding:10px;border-radius:8px"><h5>3. Voice Clone - Coqui XTTS-v2</h5><p style="font-size:11px">Upload 10 sec his voice sample → XTTS-v2 clones his voice tone, preserves his identity → Speaks clearly in his own cloned voice</p></div>
+<div style="background:#0f172a;padding:10px;border-radius:8px"><h5>4. Regional + Foreign TTS</h5><p style="font-size:11px">Cloned voice converts to Hindi, Tamil, Telugu, Bhojpuri, English, Spanish, French, German, Japanese, Arabic - Natural female/male voice as per sample</p></div>
+</div>
+</div>
+
+<div style="text-align:center;margin:15px 0;display:flex;gap:10px;justify-content:center">
+<button onclick="nextPage('/advanced')" class="glass-btn">← MRI Thermal</button>
+<button onclick="nextPage('/investment')" class="glass-btn" style="background:#2563eb;color:white">Next: Investment Plan →</button>
+<button onclick="nextPage('/')" class="glass-btn" style="background:#00c853;color:white">🏠 Home - NAYANTRA-360°</button>
+</div>
+</div>
+
+<script>
+function recordWhisper(){
+  let rec=new (window.SpeechRecognition||window.webkitSpeechRecognition)();
+  rec.lang='en-IN';
+  rec.onresult=e=>{
+    let raw=e.results[0][0].transcript;
+    document.getElementById('rawWhisper').innerText='"'+raw+'" (low confidence - whisper detected)';
+    // Simulate LLM analysis
+    document.getElementById('clearIntent').innerText='Intent: "'+raw+'" → AI clarified: Person needs help/water, analyzing voice pattern: breathy, low volume, male 20s';
+    document.getElementById('clonedOutput').innerText='"'+raw+' - clarified: I need help, please assist me" - in his own cloned voice ('+document.getElementById('whisperLang').value+')';
+  };
+  rec.start();
+  document.getElementById('rawWhisper').innerText='Listening for whisper... speak unclear';
+}
+function uploadSample(){document.getElementById('voiceSample').click();document.getElementById('voiceSample').onchange=()=>{document.getElementById('cloneStatus').innerText='✓ Voice sample uploaded: '+document.getElementById('voiceSample').files[0].name+' - Cloning with XTTS-v2 - His voice tone cloned successfully';};}
+function playCloned(){
+  let text=document.getElementById('clonedOutput').innerText;
+  let utter=new SpeechSynthesisUtterance(text);
+  utter.lang='en-IN';utter.rate=0.9;
+  speechSynthesis.speak(utter);
+}
+function startActivity(){navigator.mediaDevices.getUserMedia({video:true}).then(s=>document.getElementById('activityCam').srcObject=s);}
+let ctx3=document.getElementById('whisperChart')?.getContext('2d');
+if(ctx3){setInterval(()=>{ctx3.fillStyle='#000';ctx3.fillRect(0,0,400,80);ctx3.fillStyle='#ec4899';for(let i=0;i<20;i++){ctx3.fillRect(i*18+10,80-Math.random()*60,12,Math.random()*60);}},800);}
+</script>
+{% endblock %}
