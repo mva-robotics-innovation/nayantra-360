@@ -1,0 +1,32 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}NAYANTRA-360°{% endblock %}</title>
+<link rel="stylesheet" href="/static/css/style.css"></head>
+<body>
+<div class="glass-nav">
+<a href="/" class="glass-btn active">👁️ NAYANTRA-360°</a>
+<a href="/problem" class="glass-btn">⚠️ Problem</a>
+<a href="/solution" class="glass-btn">✅ Solution</a>
+<a href="/health" class="glass-btn">🩺 Health</a>
+<a href="/factory" class="glass-btn">🏭 Factory</a>
+<a href="/school" class="glass-btn">🏫 School</a>
+<a href="/college" class="glass-btn">🎓 College</a>
+<a href="/sign" class="glass-btn">🤟 Sign</a>
+<a href="/advanced" class="glass-btn">🧠 MRI</a>
+<a href="/whisper" class="glass-btn">🎙️ Whisper</a>
+<a href="/tech" class="glass-btn">💻 Tech</a>
+<a href="/investment" class="glass-btn">💰 Investment</a>
+<button onclick="toggleMode()" class="glass-btn">🌗 Dark/Light</button>
+<select onchange="translatePage(this.value)" class="glass-btn">
+<option>🌐 English</option><option>हिन्दी</option><option>தமிழ்</option><option>తెలుగు</option><option>भोजपुरी</option><option>Español</option><option>Français</option><option>Deutsch</option><option>日本語</option><option>العربية</option>
+</select>
+<button onclick="welcomeVoice()" class="glass-btn">🔊 Welcome Voice</button>
+</div>
+
+{% block content %}{% endblock %}
+
+<div class="scroll-btns">
+<button onclick="scrollUp()">↑</button>
+<button onclick="scrollDown()">↓</button>
+</div>
+<script src="/static/js/nayantra.js"></script>
+</body></html>
